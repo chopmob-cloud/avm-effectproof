@@ -95,6 +95,47 @@ def test_voi_fixture_specifics():
     assert len(inner_logs) == 3
 
 
+def test_created_app_id_is_read_from_applydata_not_eval_delta():
+    """Regression: ca/aca/caid/apid are ApplyData fields (siblings of the
+    EvalDelta ``dt``), not inside it. The Voi block's first inner transaction
+    really created app 36929; reading these from ``dt`` silently reports 0,
+    which under-reports a real effect."""
+    effects = decode_stib(_load("stib_voi_mainnet"), chain=VOI_MAINNET)
+    creators = [c for c in effects.all_inner() if c.effects.created_app_id]
+    assert len(creators) == 1
+    assert creators[0].effects.created_app_id == 36929
+
+
+@pytest.mark.parametrize("name,chain,stem", CASES, ids=[c[0] for c in CASES])
+def test_created_and_closing_fields_default_to_zero_when_absent(name, chain, stem):
+    """When the ApplyData carries no creation/close-out, the fields read 0 —
+    not an exception, and not a stale value pulled from the wrong map."""
+    effects = decode_stib(_load(stem), chain=chain)
+    assert effects.created_asset_id == 0
+    assert effects.closing_amount == 0
+    assert effects.asset_closing_amount == 0
+
+
+def test_applydata_fields_are_decoded_from_the_stib_level():
+    """Synthetic STIB exercising all four ApplyData effect fields at once, with
+    decoy values inside the EvalDelta to prove they are not read from there."""
+    from avm_proofpack import mpack
+
+    stib = {
+        "txn": {"type": "acfg", "snd": b"\x01" * 32},
+        "ca": 7000,
+        "aca": 42,
+        "apid": 555,
+        "caid": 999,
+        "dt": {"apid": 111, "caid": 222, "ca": 333, "aca": 444},  # decoys in dt
+    }
+    effects = decode_stib(mpack.encode_canonical(stib), chain=ALGORAND_MAINNET)
+    assert effects.created_app_id == 555
+    assert effects.created_asset_id == 999
+    assert effects.closing_amount == 7000
+    assert effects.asset_closing_amount == 42
+
+
 @pytest.mark.parametrize("name,chain,stem", CASES, ids=[c[0] for c in CASES])
 def test_log_predicates_are_binary_safe(name, chain, stem):
     effects = decode_stib(_load(stem), chain=chain)
