@@ -32,7 +32,7 @@ from .predicates import (
     has_payment,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "ALGORAND_MAINNET",

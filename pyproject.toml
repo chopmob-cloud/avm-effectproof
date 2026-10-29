@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "avm-effectproof"
-version = "0.1.0"
+version = "0.1.1"
 description = "Application-effect proofs for Algorand and Voi: read inner transactions, logs and state deltas out of an authenticated SignedTxnInBlock."
 readme = "README.md"
 requires-python = ">=3.10"

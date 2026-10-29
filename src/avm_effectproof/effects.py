@@ -21,7 +21,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "ALGORAND_MAINNET",
@@ -266,10 +266,13 @@ def _effects_from(stib: Any, chain: str, depth: int = 0) -> Effects:
         local_deltas=tuple(sorted(local, key=lambda p: p[0])),
         logs=tuple(logs),
         inner=tuple(inner),
-        created_app_id=_as_int(delta.get("apid")),
-        created_asset_id=_as_int(delta.get("caid")),
-        closing_amount=_as_int(delta.get("ca")),
-        asset_closing_amount=_as_int(delta.get("aca")),
+        # ca/aca/caid/apid are ApplyData fields, siblings of the EvalDelta (dt),
+        # NOT inside it (go-algorand data/transactions/teal.go: ApplyData embeds
+        # EvalDelta under "dt" alongside these). Read them from the STIB level.
+        created_app_id=_as_int(stib.get("apid")),
+        created_asset_id=_as_int(stib.get("caid")),
+        closing_amount=_as_int(stib.get("ca")),
+        asset_closing_amount=_as_int(stib.get("aca")),
     )
 
 
