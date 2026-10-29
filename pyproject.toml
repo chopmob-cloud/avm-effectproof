@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "avm-effectproof"
+version = "0.1.0"
+description = "Application-effect proofs for Algorand and Voi: read inner transactions, logs and state deltas out of an authenticated SignedTxnInBlock."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{ name = "AlgoVoi", email = "chopmob@gmail.com" }]
+keywords = ["algorand", "voi", "avm", "state-proof", "applydata", "evadelta", "receipts"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Topic :: Security :: Cryptography",
+]
+dependencies = ["avm-proofpack>=0.3.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+avm-effectproof = "avm_effectproof.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

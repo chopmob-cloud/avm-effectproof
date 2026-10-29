@@ -1,0 +1,13 @@
+{
+ "chain": "voi",
+ "round": 181248,
+ "index": 1,
+ "payset_len": 2,
+ "genesis_hash_b64": "r20fSQI8gWe/kFZziNonSPCXLwcQmH/nxROvnnueWOk=",
+ "genesis_id": "voimain-v1.0",
+ "txn_type": "appl",
+ "n_logs": 2,
+ "n_inner": 5,
+ "n_gd": 0,
+ "n_ld": 0
+}

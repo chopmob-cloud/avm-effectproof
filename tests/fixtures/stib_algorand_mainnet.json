@@ -1,0 +1,13 @@
+{
+ "chain": "algorand",
+ "round": 63605124,
+ "index": 1,
+ "payset_len": 19,
+ "genesis_hash_b64": "wGHE2Pwdvd7S12BL5FaOP20EGYesN73ktiC1qzkkit8=",
+ "genesis_id": "mainnet-v1.0",
+ "txn_type": "appl",
+ "n_logs": 0,
+ "n_inner": 3,
+ "n_gd": 2,
+ "n_ld": 0
+}
