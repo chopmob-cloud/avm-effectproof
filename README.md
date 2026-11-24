@@ -1,6 +1,5 @@
 # avm-effectproof
 
-
 [![PyPI](https://img.shields.io/pypi/v/avm-effectproof)](https://pypi.org/project/avm-effectproof/) [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 
 **Application-effect proofs for Algorand and Voi.** Read what a transaction
