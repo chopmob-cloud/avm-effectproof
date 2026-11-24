@@ -1,5 +1,8 @@
 # avm-effectproof
 
+
+[![PyPI](https://img.shields.io/pypi/v/avm-effectproof)](https://pypi.org/project/avm-effectproof/)
+
 **Application-effect proofs for Algorand and Voi.** Read what a transaction
 *actually did* — inner transactions, logs, global and local state changes — out
 of a `SignedTxnInBlock` you have already proven into a block.
